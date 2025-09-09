@@ -60,7 +60,7 @@
   }
   ```
 - **Expected:** Response from Gemini LLM with generated text.
-
+- You can modify prompts in the request body to experiment with different outputs.
 
 ### **Endpoint 2 – Fitness Plan (Markdown Output)**
 - **POST** `http://localhost:4000/api/generate-text2`  
@@ -74,7 +74,7 @@
   }
   ```
 - **Expected:** Response in **Markdown** format.
-
+- You can modify prompts in the request body to experiment with different outputs.
 
 ### **Endpoint 3 – Fitness Plan (Structured JSON Output)**
 - **POST** `http://localhost:4000/api/generate-text3`  
@@ -88,6 +88,7 @@
   }
   ```
 - **Expected:** Structured **JSON** response.
+- You can modify prompts in the request body to experiment with different outputs.
 
 ---
 
