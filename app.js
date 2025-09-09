@@ -21,5 +21,4 @@ app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
 
-
-
+// npm install express dotenv multer @google/genai
