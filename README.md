@@ -92,15 +92,17 @@
 
 ## Code Reference
 
+<!-- 
 1. **`./controllers/textController1.js`** → Handles `/generate-text1`
 2. **`./controllers/textController2.js`** → Handles `/generate-text2`
 3. **`./controllers/textController3.js`** → Handles `/generate-text3`
-4. **`./services/gemini.js`** → Logic for calling Gemini LLM
+4. **`./services/gemini.js`** → Logic for calling Gemini LLM 
+-->
 
 
 ### 1. `textController1.js`: Calling the Gemini LLM
 
-The simplest way to call the Gemini LLM is isllustarted in [`textController1.js`](./controllers/textController1.js):
+The simplest way to call the Gemini LLM is illustrated in [`textController1.js`](./controllers/textController1.js):
 
 1. **Import the model** (line 1):  
    ```js
@@ -133,12 +135,60 @@ The simplest way to call the Gemini LLM is isllustarted in [`textController1.js`
 - Send the request and **test the response** from the LLM.
 
 
+### 2. `textController2.js`: Using Dynamic Prompts
 
-### 2. textController2.js
+If we want to have a **dynamic prompt**, we can pass dynamic data from the client (e.g., a React frontend or Postman) and construct the prompt on the server.
 
+This is illustrated in [`textController2.js`](./controllers/textController2.js):
 
+- **Destructure the dynamic data** (line 13):  
+  ```js
+  const { fitnessType, frequency, experience, goal } = req.body; // || {}
+  ```
 
-### 3. textController3.js
+- **Construct the prompt** (lines 19–23):  
+  ```js
+  const prompt = `
+    I am a ${experience} individual looking to focus on ${fitnessType}.
+    My goal is to ${goal}, and I plan to train ${frequency} times per week.
+    Provide a structured fitness guideline including recommended exercises, duration, and any diet suggestions.
+  `;
+  ```
+
+**Task: Create a Dynamic Health Prompt**
+
+1. **In your controller**, destructure the data from `req.body`:
+   ```js
+   const { age, gender, healthGoal, dietPreference, workoutDays } = req.body;
+   ```
+
+2. **Construct a dynamic prompt** using template literals:
+   ```js
+   const prompt = `
+     I am a ${age}-year-old ${gender} aiming to ${healthGoal}.
+     My diet preference is ${dietPreference}, and I can work out ${workoutDays} days per week.
+     Please provide a personalized weekly health and fitness plan, including exercise types, duration, and meal suggestions.
+   `;
+   ```
+
+3. **Pass the prompt** to your Gemini model:
+   ```js
+   const result = await model(prompt);
+   res.json({ output: result.text });
+   ```
+
+4. **From Postman**, send a `POST` request with the following JSON body:  
+   ```json
+   {
+     "age": 35,
+     "gender": "female",
+     "healthGoal": "improve cardiovascular endurance",
+     "dietPreference": "vegetarian",
+     "workoutDays": 4
+   }
+   ```
+
+### 3. `textController3.js`
 
 
 
