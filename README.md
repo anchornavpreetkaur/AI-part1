@@ -11,7 +11,7 @@
 - [Step 1: Setup Instructions](#step-1-setup-instructions)
 - [Step 2: Testing the Endpoints with Postman](#step-2-testing-the-endpoints-with-postman)
 - [Code Reference: textController1.js - Calling the Gemini LLM](#code-reference-textcontroller1js---calling-the-gemini-llm)
-  - [Task 1](#)
+  - [Task 1](#task-1)
 - [Code Reference: textController2.js - Using Dynamic Prompts](#endpoint-2--fitness-plan-markdown-output)
   - [Task 2](#task-2-create-a-dynamic-health-prompt)
 - [Code Reference: textController3.js - Structured Output with Gemini](#endpoint-3--fitness-plan-structured-json-output)
