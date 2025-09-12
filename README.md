@@ -171,6 +171,14 @@ This is illustrated in [`textController2.js`](./controllers/textController2.js):
    const { age, gender, healthGoal, dietPreference, workoutDays } = req.body;
    ```
 
+2. check if empty fields
+
+   ```js
+   if (!age || !gender || !healthGoal || !dietPreference || !workoutDays) {
+    return res.status(400).json({ message: "All fields are required." });
+   }
+   ```
+
 2. **Construct a dynamic prompt** using template literals:
    ```js
    const prompt = `
