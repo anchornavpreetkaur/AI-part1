@@ -2,7 +2,6 @@ const model = require("../services/gemini");
 
 // Function to generate fitness guidelines
 const generateFitnessPlan = async (fitnessType,frequency, experience,goal) => {
-
 const prompt = `
   You are a professional fitness coach. Given the user's fitness experience, training frequency, and goal, generate a **structured fitness plan** in **JSON format**.
   

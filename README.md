@@ -188,8 +188,319 @@ This is illustrated in [`textController2.js`](./controllers/textController2.js):
    }
    ```
 
-### 3. `textController3.js`
+### 3. `textController3.js`: Structured Output with Gemini
 
+In the previous controller, we didn’t have much control over the format of the LLM’s output. To ensure a **structured output**, we need to be very explicit in the prompt about the required format.  
+
+This is illustrated  (*lines 5–59*) in [`textController3.js`](./controllers/textController3.js):
+
+```js
+const prompt = `
+  You are a professional fitness coach. Given the user's fitness experience, training frequency, and goal, generate a **structured fitness plan** in **JSON format**.
+  
+  ### Schema Requirements:
+  The JSON response must follow this structure:
+  
+  {
+    "fitness_plan": {
+      "experience_level": "string",
+      "goal": "string",
+      "training_frequency": "number",
+      "workout_split": [
+        {
+          "day": "string",
+          "focus": "string",
+          "exercises": [
+            {
+              "name": "string",
+              "sets": "number",
+              "reps": "string"
+            }
+          ]
+        }
+      ],
+      "diet_recommendations": {
+        "caloric_intake": "string",
+        "macronutrient_breakdown": {
+          "protein": "string",
+          "carbs": "string",
+          "fats": "string"
+        },
+        "meal_timing": "string",
+        "example_meals": [
+          {
+            "meal": "string",
+            "foods": ["string"]
+          }
+        ]
+      },
+      "recovery_tips": ["string"],
+      "warnings": ["string"]
+    }
+  }
+  
+  ### User Input:
+  I am a ${experience} individual looking to focus on ${fitnessType}.
+  My goal is to ${goal}, and I plan to train ${frequency} times per week.
+  
+  Provide a structured fitness guideline including:
+  - Recommended exercises with sets and reps.
+  - Workout split (daily training focus).
+  - Dietary recommendations (caloric intake, macronutrient breakdown, example meals).
+  - Recovery tips and warnings to avoid injury.
+  - Return the response in the above JSON format.
+`;
+```
+
+**Sample Output**
+
+```json
+{
+  "fitness_plan": {
+    "experience_level": "intermediate",
+    "goal": "build muscle",
+    "training_frequency": 4,
+    "workout_split": [
+      {
+        "day": "Monday",
+        "focus": "Upper Body – Push",
+        "exercises": [
+          { "name": "Barbell Bench Press", "sets": 4, "reps": "8–10" },
+          { "name": "Overhead Press", "sets": 3, "reps": "8–10" },
+          { "name": "Incline Dumbbell Press", "sets": 3, "reps": "10–12" },
+          { "name": "Triceps Rope Pushdown", "sets": 3, "reps": "12–15" }
+        ]
+      },
+      {
+        "day": "Tuesday",
+        "focus": "Lower Body – Squat Focus",
+        "exercises": [
+          { "name": "Back Squat", "sets": 4, "reps": "6–8" },
+          { "name": "Romanian Deadlift", "sets": 3, "reps": "8–10" },
+          { "name": "Walking Lunges", "sets": 3, "reps": "12 steps each leg" },
+          { "name": "Standing Calf Raise", "sets": 3, "reps": "15–20" }
+        ]
+      },
+      {
+        "day": "Thursday",
+        "focus": "Upper Body – Pull",
+        "exercises": [
+          { "name": "Pull-Ups", "sets": 4, "reps": "6–10" },
+          { "name": "Barbell Row", "sets": 3, "reps": "8–10" },
+          { "name": "Face Pulls", "sets": 3, "reps": "12–15" },
+          { "name": "Barbell Curl", "sets": 3, "reps": "10–12" }
+        ]
+      },
+      {
+        "day": "Friday",
+        "focus": "Lower Body – Deadlift Focus",
+        "exercises": [
+          { "name": "Deadlift", "sets": 4, "reps": "5–6" },
+          { "name": "Front Squat", "sets": 3, "reps": "8–10" },
+          { "name": "Hip Thrust", "sets": 3, "reps": "10–12" },
+          { "name": "Seated Calf Raise", "sets": 3, "reps": "15–20" }
+        ]
+      }
+    ],
+    "diet_recommendations": {
+      "caloric_intake": "2,800 kcal/day",
+      "macronutrient_breakdown": {
+        "protein": "180g",
+        "carbs": "350g",
+        "fats": "80g"
+      },
+      "meal_timing": "3 main meals and 2 snacks spaced evenly throughout the day",
+      "example_meals": [
+        {
+          "meal": "Breakfast",
+          "foods": ["Oatmeal with whey protein and berries", "Scrambled eggs with spinach"]
+        },
+        {
+          "meal": "Lunch",
+          "foods": ["Grilled chicken breast", "Brown rice", "Steamed broccoli"]
+        },
+        {
+          "meal": "Dinner",
+          "foods": ["Salmon fillet", "Sweet potato", "Asparagus"]
+        },
+        {
+          "meal": "Snack",
+          "foods": ["Greek yogurt with honey", "Almonds"]
+        }
+      ]
+    },
+    "recovery_tips": [
+      "Aim for 7–9 hours of sleep per night",
+      "Incorporate stretching or foam rolling after workouts",
+      "Take at least one full rest day per week"
+    ],
+    "warnings": [
+      "Avoid increasing weight too quickly to prevent injury",
+      "Maintain proper form during all lifts"
+    ]
+  }
+}¨
+```
+
+**Task: Create a Structured Health Plan Output**
+
+**Goal:**  
+Update the code so that it accepts dynamic user data and returns a **strictly structured JSON** health plan.
+
+
+**Example Input (from Postman)**
+
+```json
+{
+  "age": 35,
+  "gender": "female",
+  "healthGoal": "improve cardiovascular endurance",
+  "dietPreference": "vegetarian",
+  "workoutDays": 4
+}
+```
+
+
+
+**Prompt Template**
+
+```js
+const prompt = `
+You are a certified health and fitness consultant. Based on the user's details, create a **personalized health improvement plan** in **JSON format**.
+
+### Schema Requirements:
+The JSON response must follow this structure:
+
+{
+  "health_plan": {
+    "age": "number",
+    "gender": "string",
+    "goal": "string",
+    "diet_preference": "string",
+    "workout_days_per_week": "number",
+    "weekly_workout_schedule": [
+      {
+        "day": "string",
+        "focus": "string",
+        "activities": [
+          {
+            "name": "string",
+            "duration_minutes": "number",
+            "intensity": "string"
+          }
+        ]
+      }
+    ],
+    "nutrition_guidelines": {
+      "daily_calories": "string",
+      "macronutrient_breakdown": {
+        "protein": "string",
+        "carbs": "string",
+        "fats": "string"
+      },
+      "meal_examples": [
+        {
+          "meal": "string",
+          "foods": ["string"]
+        }
+      ]
+    },
+    "lifestyle_recommendations": ["string"],
+    "progress_tracking_tips": ["string"]
+  }
+}
+
+### User Input:
+I am a ${age}-year-old ${gender} aiming to ${healthGoal}.
+My diet preference is ${dietPreference}, and I can work out ${workoutDays} days per week.
+
+Please:
+- Provide a **weekly workout schedule** tailored to my goal.
+- Suggest **nutrition guidelines** aligned with my diet preference.
+- Include **lifestyle recommendations** to support my goal.
+- Add **progress tracking tips**.
+- Return the response in the exact JSON format above.
+`;
+```
+
+**Sample Realistic Output**
+
+```json
+{
+  "health_plan": {
+    "age": 35,
+    "gender": "female",
+    "goal": "improve cardiovascular endurance",
+    "diet_preference": "vegetarian",
+    "workout_days_per_week": 4,
+    "weekly_workout_schedule": [
+      {
+        "day": "Monday",
+        "focus": "Cardio – Steady State",
+        "activities": [
+          { "name": "Treadmill Jog", "duration_minutes": 30, "intensity": "moderate" },
+          { "name": "Cycling", "duration_minutes": 20, "intensity": "moderate" }
+        ]
+      },
+      {
+        "day": "Wednesday",
+        "focus": "Interval Training",
+        "activities": [
+          { "name": "Running Intervals", "duration_minutes": 25, "intensity": "high" },
+          { "name": "Rowing Machine", "duration_minutes": 15, "intensity": "moderate" }
+        ]
+      },
+      {
+        "day": "Friday",
+        "focus": "Cardio + Core",
+        "activities": [
+          { "name": "Elliptical", "duration_minutes": 30, "intensity": "moderate" },
+          { "name": "Plank Holds", "duration_minutes": 5, "intensity": "low" }
+        ]
+      },
+      {
+        "day": "Saturday",
+        "focus": "Outdoor Endurance",
+        "activities": [
+          { "name": "Hiking", "duration_minutes": 60, "intensity": "moderate" }
+        ]
+      }
+    ],
+    "nutrition_guidelines": {
+      "daily_calories": "2,000 kcal",
+      "macronutrient_breakdown": {
+        "protein": "90g",
+        "carbs": "280g",
+        "fats": "60g"
+      },
+      "meal_examples": [
+        {
+          "meal": "Breakfast",
+          "foods": ["Oatmeal with almond milk and berries", "Scrambled tofu with spinach"]
+        },
+        {
+          "meal": "Lunch",
+          "foods": ["Quinoa salad with chickpeas and roasted vegetables"]
+        },
+        {
+          "meal": "Dinner",
+          "foods": ["Lentil curry with brown rice", "Steamed broccoli"]
+        }
+      ]
+    },
+    "lifestyle_recommendations": [
+      "Aim for 7–8 hours of sleep per night",
+      "Stay hydrated with at least 2 liters of water daily",
+      "Incorporate active recovery on rest days"
+    ],
+    "progress_tracking_tips": [
+      "Track running distance and pace weekly",
+      "Record resting heart rate each morning",
+      "Reassess endurance every 4 weeks with a timed run"
+    ]
+  }
+}
+```
 
 
 ###  4. Model Configuration
