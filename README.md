@@ -1,8 +1,9 @@
 # Testing API Calls to Gemini LLM
 
+<!-- 
 > [!NOTE]
 > How to modify prompts and extend the code for image, audio, or document analysis will be covered in the optional Friday session.
- 
+-->
 ---
 
 ## Step 0: Prerequisites
