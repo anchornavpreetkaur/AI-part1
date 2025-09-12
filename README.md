@@ -1,16 +1,21 @@
-# Testing API Calls to Gemini LLM
+# Using LLM – Part 1
 
-<!-- 
 > [!NOTE]
-> How to modify prompts and extend the code for image, audio, or document analysis will be covered in the optional Friday session.
--->
+>  This is the first in a two‑part series on using the Gemini LLM. In this part, we focus on text generation with both static and dynamic prompts, and on receiving structured responses. [Part 2](https://github.com/tx00-resources-en/AI-part2) covers analyzing images, audio, and documents.
+
+---
+
+## TOC
 
 - [Step 0: Prerequisites](#step-0-prerequisites)
 - [Step 1: Setup Instructions](#step-1-setup-instructions)
 - [Step 2: Testing the Endpoints with Postman](#step-2-testing-the-endpoints-with-postman)
 - [Code Reference: textController1.js - Calling the Gemini LLM](#code-reference-textcontroller1js---calling-the-gemini-llm)
+  - [Task 1](#)
 - [Code Reference: textController2.js - Using Dynamic Prompts](#endpoint-2--fitness-plan-markdown-output)
+  - [Task 2](#task-2-create-a-dynamic-health-prompt)
 - [Code Reference: textController3.js - Structured Output with Gemini](#endpoint-3--fitness-plan-structured-json-output)
+  - [Task 3](./doc/task3.md)
 - [Code Reference: Model Configuration](#code-reference-model-configuration)
 - [Additional Resources](#additional-resources)
 
@@ -125,7 +130,8 @@ The simplest way to call the Gemini LLM is illustrated in [`textController1.js`]
 - The prompt being sent is currently **static** (line 13 in the example below).
 
 
-**Task**
+### Task 1: 
+
 - Change the static prompt text to a **different prompt** of your choice.  
   For example:  
   ```json
@@ -158,7 +164,7 @@ This is illustrated in [`textController2.js`](./controllers/textController2.js):
   `;
   ```
 
-**Task: Create a Dynamic Health Prompt**
+### Task 2: Create a Dynamic Health Prompt
 
 1. **In your controller**, destructure the data from `req.body`:
    ```js
@@ -346,6 +352,10 @@ const prompt = `
   }
 }
 ```
+
+### Task 3: Task: Build a Structured Health Plan Endpoint
+
+> [Task 3](./doc/task3.md)
 
 ---
 
