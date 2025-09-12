@@ -1,4 +1,3 @@
-
 const model = require("../services/gemini");
 
 // Function to generate fitness guidelines

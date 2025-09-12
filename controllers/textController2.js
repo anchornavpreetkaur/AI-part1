@@ -1,4 +1,3 @@
-
 const model = require("../services/gemini");
 
 // POST request to /generate-text2 with the following JSON payload:

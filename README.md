@@ -33,10 +33,7 @@
      Jh6AIvfYH87KKL34KllmsHg
      ```  
      with the API key you generated earlier.
-   - Rename the file:  
-     ```bash
-     mv .env.example .env
-     ```
+   - Rename the file `.env.example`  to ` .env`  
 
 4. **Install dependencies**  
    ```bash
@@ -93,26 +90,83 @@
 
 ---
 
-## Step 3: Code Reference
+## Code Reference
 
-- **`./controllers/textController1.js`** → Handles `/generate-text1`
-- **`./controllers/textController2.js`** → Handles `/generate-text2`
-- **`./controllers/textController3.js`** → Handles `/generate-text3`
-- **`./services/gemini.js`** → Logic for calling Gemini LLM
+1. **`./controllers/textController1.js`** → Handles `/generate-text1`
+2. **`./controllers/textController2.js`** → Handles `/generate-text2`
+3. **`./controllers/textController3.js`** → Handles `/generate-text3`
+4. **`./services/gemini.js`** → Logic for calling Gemini LLM
 
----
 
-## Step 4: Model Configuration
+### 1. `textController1.js`: Calling the Gemini LLM
 
-- **Temperature** controls randomness in output:  
-  - `0.0` → Deterministic  
-  - `0.7–1.0` → More random, creative responses  
-- Current setting:  
-  ```js
-  config: {
-    temperature: 0.1, // Low randomness, focused and consistent
+The simplest way to call the Gemini LLM is isllustarted in [`textController1.js`](./controllers/textController1.js):
+
+1. **Import the model** (line 1):  
+   ```js
+   const model = require("../services/gemini");
+   ```
+
+2. **Call the model** (line 17):  
+   ```js
+   const result = await model(prompt);
+   ```
+
+3. **Return the result** (line 17):  
+   ```js
+   res.json({ output: result.text });
+   ```
+
+**Notes:**
+- We use `async/await` because `model()` returns a Promise — just like when we worked with Mongoose/MongoDB.
+- The prompt being sent is currently **static** (line 13 in the example below).
+
+
+**Task**
+- Change the static prompt text to a **different prompt** of your choice.  
+  For example:  
+  ```json
+  {
+    "prompt": "Suggest 5 creative marketing ideas for a small coffee shop."
   }
   ```
+- Send the request and **test the response** from the LLM.
+
+
+
+### 2. textController2.js
+
+
+
+### 3. textController3.js
+
+
+
+###  4. Model Configuration
+
+The code to configure Gemini LLM is in[ `services/gemini.js`](./services/gemini.js):
+
+- On **line 6**, you can choose from different models, e.g., `gemini-2.5-flash`, `gemini-2.0-flash`.  
+  For rapid prototyping, we are **using** `gemini-2.5-flash-lite` because it allows more requests before reaching the free limit.
+
+- On **line 15**, there is a config property named `temperature` set to `0.1`.  
+  This controls randomness in the output:  
+  - `0.0` → Deterministic  
+  - `0.7–1.0` → More random, creative responses
+
+
+### 4. Configure environment variables
+
+1. Open [`.env.example`](./.env.example).  
+   - On **line 1**, replace the placeholder with your API key, for example:  
+     ```env
+     GEMINI_API_KEY=Jh6AIvfYH87KKL34KllmsHg
+     ```
+
+2. Rename the file from `.env.example` to `.env`.  
+   - We do this because `.env` is listed in `.gitignore`, so your API key will not be committed to the repository.
+
+
 
 ---
 
