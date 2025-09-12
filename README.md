@@ -4,6 +4,17 @@
 > [!NOTE]
 > How to modify prompts and extend the code for image, audio, or document analysis will be covered in the optional Friday session.
 -->
+
+- [Step 0: Prerequisites](#step-0-prerequisites)
+- [Step 1: Setup Instructions](#step-1-setup-instructions)
+- [Step 2: Testing the Endpoints with Postman](#step-2-testing-the-endpoints-with-postman)
+- [Code Reference: textController1.js - Calling the Gemini LLM](#code-reference-textcontroller1js---calling-the-gemini-llm)
+- [Code Reference: textController2.js - Using Dynamic Prompts](#endpoint-2--fitness-plan-markdown-output)
+- [Code Reference: textController3.js - Structured Output with Gemini](#endpoint-3--fitness-plan-structured-json-output)
+- [Code Reference: Model Configuration](#code-reference-model-configuration)
+- [Additional Resources](#additional-resources)
+
+
 ---
 
 ## Step 0: Prerequisites
