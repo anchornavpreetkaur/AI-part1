@@ -90,17 +90,7 @@
 
 ---
 
-## Code Reference
-
-<!-- 
-1. **`./controllers/textController1.js`** → Handles `/generate-text1`
-2. **`./controllers/textController2.js`** → Handles `/generate-text2`
-3. **`./controllers/textController3.js`** → Handles `/generate-text3`
-4. **`./services/gemini.js`** → Logic for calling Gemini LLM 
--->
-
-
-### 1. `textController1.js`: Calling the Gemini LLM
+## Code Reference: `textController1.js` - Calling the Gemini LLM
 
 The simplest way to call the Gemini LLM is illustrated in [`textController1.js`](./controllers/textController1.js):
 
@@ -135,7 +125,9 @@ The simplest way to call the Gemini LLM is illustrated in [`textController1.js`]
 - Send the request and **test the response** from the LLM.
 
 
-### 2. `textController2.js`: Using Dynamic Prompts
+---
+
+## Code Reference: `textController2.js` - Using Dynamic Prompts
 
 If we want to have a **dynamic prompt**, we can pass dynamic data from the client (e.g., a React frontend or Postman) and construct the prompt on the server.
 
@@ -188,7 +180,9 @@ This is illustrated in [`textController2.js`](./controllers/textController2.js):
    }
    ```
 
-### 3. `textController3.js`: Structured Output with Gemini
+---
+
+## Code Reference: `textController3.js` - Structured Output with Gemini
 
 In the previous controller, we didn’t have much control over the format of the LLM’s output. To ensure a **structured output**, we need to be very explicit in the prompt about the required format.  
 
@@ -339,11 +333,12 @@ const prompt = `
       "Maintain proper form during all lifts"
     ]
   }
-}¨
+}
 ```
 
+---
 
-###  4. Model Configuration
+## Code Reference: Model Configuration
 
 The code to configure Gemini LLM is in[ `services/gemini.js`](./services/gemini.js):
 
