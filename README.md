@@ -171,7 +171,7 @@ This is illustrated in [`textController2.js`](./controllers/textController2.js):
    const { age, gender, healthGoal, dietPreference, workoutDays } = req.body;
    ```
 
-2. check if empty fields
+2. check for empty fields
 
    ```js
    if (!age || !gender || !healthGoal || !dietPreference || !workoutDays) {
