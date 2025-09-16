@@ -14,11 +14,10 @@
   - [Task 1](#task-1)
 - [Code Reference: textController2.js - Using Dynamic Prompts](#endpoint-2--fitness-plan-markdown-output)
   - [Task 2](#task-2-create-a-dynamic-health-prompt)
-- [Code Reference: textController3.js - Structured Output with Gemini](#endpoint-3--fitness-plan-structured-json-output)
-  - [Task 3](./doc/task3.md)
 - [Code Reference: Model Configuration](#code-reference-model-configuration)
 - [Additional Resources](#additional-resources)
-
+<!-- - [Code Reference: textController3.js - Structured Output with Gemini](#endpoint-3--fitness-plan-structured-json-output)
+  - [Task 3](./doc/task3.md) -->
 
 ---
 
@@ -207,6 +206,46 @@ This is illustrated in [`textController2.js`](./controllers/textController2.js):
 
 ---
 
+
+## Code Reference: Model Configuration
+
+The code to configure Gemini LLM is in[ `services/gemini.js`](./services/gemini.js):
+
+- On **line 6**, you can choose from different models, e.g., `gemini-2.5-flash`, `gemini-2.0-flash`.  
+  For rapid prototyping, we are **using** `gemini-2.5-flash-lite` because it allows more requests before reaching the free limit.
+
+- On **line 15**, there is a config property named `temperature` set to `0.1`.  
+  This controls randomness in the output:  
+  - `0.0` → Deterministic  
+  - `0.7–1.0` → More random, creative responses
+
+
+### 4. Configure environment variables
+
+1. Open [`.env.example`](./.env.example).  
+   - On **line 1**, replace the placeholder with your API key, for example:  
+     ```env
+     GEMINI_API_KEY=Jh6AIvfYH87KKL34KllmsHg
+     ```
+
+2. Rename the file from `.env.example` to `.env`.  
+   - We do this because `.env` is listed in `.gitignore`, so your API key will not be committed to the repository.
+
+---
+
+## Additional Resources
+
+- [Text Generation Docs](https://ai.google.dev/gemini-api/docs/text-generation)  
+- [Document Processing Docs](https://ai.google.dev/gemini-api/docs/document-processing)  
+- [Image Understanding Docs](https://ai.google.dev/gemini-api/docs/image-understanding)  
+- [Audio Processing Docs](https://ai.google.dev/gemini-api/docs/audio)  
+- [Structured Output Docs](https://ai.google.dev/gemini-api/docs/structured-output)  
+
+
+
+<!-- 
+
+---
 ## Code Reference: `textController3.js` - Structured Output with Gemini
 
 In the previous controller, we didn’t have much control over the format of the LLM’s output. To ensure a **structured output**, we need to be very explicit in the prompt about the required format.  
@@ -365,40 +404,4 @@ const prompt = `
 
 > [Task 3](./doc/task3.md)
 
----
-
-## Code Reference: Model Configuration
-
-The code to configure Gemini LLM is in[ `services/gemini.js`](./services/gemini.js):
-
-- On **line 6**, you can choose from different models, e.g., `gemini-2.5-flash`, `gemini-2.0-flash`.  
-  For rapid prototyping, we are **using** `gemini-2.5-flash-lite` because it allows more requests before reaching the free limit.
-
-- On **line 15**, there is a config property named `temperature` set to `0.1`.  
-  This controls randomness in the output:  
-  - `0.0` → Deterministic  
-  - `0.7–1.0` → More random, creative responses
-
-
-### 4. Configure environment variables
-
-1. Open [`.env.example`](./.env.example).  
-   - On **line 1**, replace the placeholder with your API key, for example:  
-     ```env
-     GEMINI_API_KEY=Jh6AIvfYH87KKL34KllmsHg
-     ```
-
-2. Rename the file from `.env.example` to `.env`.  
-   - We do this because `.env` is listed in `.gitignore`, so your API key will not be committed to the repository.
-
----
-
-## Additional Resources
-
-- [Text Generation Docs](https://ai.google.dev/gemini-api/docs/text-generation)  
-- [Document Processing Docs](https://ai.google.dev/gemini-api/docs/document-processing)  
-- [Image Understanding Docs](https://ai.google.dev/gemini-api/docs/image-understanding)  
-- [Audio Processing Docs](https://ai.google.dev/gemini-api/docs/audio)  
-- [Structured Output Docs](https://ai.google.dev/gemini-api/docs/structured-output)  
-
-
+-->

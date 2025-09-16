@@ -1,4 +1,4 @@
-# Task: Build a Structured Health Plan Endpoint
+<!-- # Task: Build a Structured Health Plan Endpoint
 
 We want to adapt the existing **fitness plan** endpoint so that it works for **health plans**.  
 The endpoint should accept dynamic health‑related data from the client (React frontend or Postman), send it to the LLM with a **strict JSON schema prompt**, and return a **parsed, structured JSON** response.
@@ -221,4 +221,4 @@ module.exports = generateHealthPlan;
 
 ### **Optional Activity: Unified Generator**
 
-You can **merge both fitness and health logic** into a single utility function that takes a `type` parameter (`"fitness"` or `"health"`) and switches schema, prompt, and post‑processing accordingly.  
+You can **merge both fitness and health logic** into a single utility function that takes a `type` parameter (`"fitness"` or `"health"`) and switches schema, prompt, and post‑processing accordingly.   -->
